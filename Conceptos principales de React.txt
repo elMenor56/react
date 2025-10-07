@@ -1,0 +1,100 @@
+Conceptos principales de React:
+
+1. Componente: Un componente es una función que devuelve una parte visual de la aplicación y puede reutilizarse para no escribir el mismo código varias veces.
+Es una función (o clase, pero hoy casi siempre se usan funciones).
+Devuelve código JSX (que parece HTML).
+Se puede reutilizar en diferentes lugares.
+Puede recibir datos (por medio de props).
+
+2. Props: Los props (abreviatura de properties) son una forma de pasar información de un componente padre a un componente hijo en React.
+Piensa en los props como paquetes de datos o mensajes que un componente envía a otro.
+Los props son argumentos que recibe un componente.
+Permiten personalizar el contenido del componente.
+Son solo de lectura (no se pueden cambiar dentro del componente hijo).
+
+3. Estado: En React, el estado (state) es una forma de guardar información que puede cambiar con el tiempo dentro de un componente.
+Cuando ese dato cambia, React actualiza automáticamente la interfaz (la parte visual de la página).
+El estado es como la memoria del componente.
+Guarda datos que pueden cambiar, como:
+El número de clics en un botón.
+Lo que el usuario escribe en un formulario.
+Si un menú está abierto o cerrado.
+Datos que vienen de una API, etc.
+
+4. Hooks: En React, los Hooks son funciones especiales que permiten usar características de React —como el estado o el ciclo de vida de los componentes— sin necesidad de escribir clases.
+En otras palabras, los Hooks hacen que los componentes de función sean más poderosos y puedan hacer casi todo lo que antes solo hacían los componentes de clase.
+
+5. Event Listener: Un event listener (o escuchador de eventos) es una función que espera a que ocurra un evento en una página web o aplicación, como un clic, un cambio en un campo de texto o el envío de un formulario.
+En pocas palabras, detecta acciones del usuario y ejecuta algo cuando pasan.
+En React, los event listeners se agregan directamente al JSX con nombres de eventos en camelCase (por ejemplo, onClick, onChange, onSubmit, etc.).
+
+==============================================================
+
+CONCEPTOS PRINCIPALES DE JSX
+
+¿Qué es JSX?
+JSX (JavaScript XML) es una extensión de JavaScript que permite escribir HTML dentro de JavaScript.
+React usa JSX para describir cómo debe verse la interfaz de usuario (UI).
+
+Solo un elemento raíz:
+JSX siempre debe devolver un único elemento padre. Si hay varios, se deben envolver en un <div> o en un fragmento (<>...</>).
+
+Expresiones en llaves {}:
+Puedes insertar variables, funciones o operaciones dentro del JSX usando llaves.
+
+Atributos en camelCase:
+En lugar de class, se usa className. Otros atributos como onclick se escriben onClick.
+
+Estilos en linea:
+Se escriben como un objeto JavaScript con doble llave {{ }}.
+
+No usar etiquetas HTML sin cerrar:
+En JSX, todas las etiquetas deben cerrarse, incluso las vacías.
+
+Renderizado condicional:
+Se puede mostrar contenido según una condición usando operadores ternarios o &&.
+
+Comentarios:
+Los comentarios dentro de JSX se escriben con llaves y /* ... */. {/*...*/}
+
+==============================================================
+
+FUNCIONAMIENTO DEL PRIMER PROYECTO: testimonios
+
+1. Testimonio.jsx — el componente hijo
+Este archivo define cómo se ve un testimonio (una tarjeta o bloque visual con imagen, texto, nombre, etc.).
+Podríamos decir que es una “plantilla” reutilizable.
+
+Qué hace:
+Usa las props (propiedades) para recibir datos desde otro componente (por ejemplo, el nombre, país, testimonio e imagen).
+Devuelve JSX, que React transforma en HTML real y muestra en pantalla.
+export default Testimonio; permite que otros archivos (como App.jsx) lo importen y lo usen.
+
+2. App.jsx — el componente padre
+Este archivo es el corazón del renderizado.
+Importa el componente Testimonio y crea instancias de él con diferentes datos.
+
+Qué hace:
+Importa el componente Testimonio.
+Llama al componente varias veces, enviando diferentes props.
+React renderiza todo eso y lo muestra en pantalla como HTML.
+
+3. Carpeta public/imagenes
+Las imágenes deben estar en public porque:
+El navegador solo puede acceder a archivos públicos, no a los que están dentro de src/.
+public/ es donde se colocan los recursos estáticos (imágenes, íconos, fuentes, etc.) que se usarán directamente en el navegador.
+Cuando React compila el proyecto, lo que está en public/ se copia tal cual al resultado final
+
+4. Flujo completo
+App.jsx importa y usa Testimonio.
+App.jsx pasa datos como props → (nombre, pais, imagen, etc.)
+Testimonio.jsx recibe esas props y construye el JSX.
+React renderiza todo en el navegador.
+Las imágenes se cargan desde public/imagenes.
+
+En resumen:
+Testimonio.jsx define cómo se ve un testimonio.
+App.jsx decide qué testimonios mostrar y con qué datos.
+public/ almacena los archivos visibles por el navegador (como las imágenes).
+
+==============================================================
