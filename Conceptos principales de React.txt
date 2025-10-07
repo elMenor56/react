@@ -98,3 +98,68 @@ App.jsx decide qué testimonios mostrar y con qué datos.
 public/ almacena los archivos visibles por el navegador (como las imágenes).
 
 ==============================================================
+
+FUNCIONAMIENTO DEL SEGUNDO PROYECTO: Contador de clicks
+
+Estructura general:
+Tienes tres componentes principales:
+App.jsx → El “cerebro” de la app (controla el estado y la lógica).
+Boton.jsx → Componente reutilizable que ejecuta una función al hacer clic.
+Contador.jsx → Muestra visualmente el número de clics.
+
+1. App.jsx — Componente principal
+¿Qué hace useState?:
+useState te permite crear y actualizar valores que cambian con el tiempo dentro del componente.
+numClics → almacena el número actual de clics.
+setNumClics → función que actualiza ese valor.
+useState(0) → el valor inicial es 0.
+
+Funciones que cambian el estado:
+const manejarClic = () => {
+  setNumClics(numClics + 1); // Incrementa el contador
+}
+
+const reiniciarContador = () =>{
+  setNumClics(0); // Reinicia el contador
+}
+Cada vez que llamas setNumClics, React vuelve a renderizar el componente mostrando el nuevo valor.
+
+Estructura JSX:
+Aquí ocurre lo siguiente:
++----------------------+----------------------------------+------------------------------------------------------------+
+| Componente           | Qué hace                         | Qué props recibe                                           |
++----------------------+----------------------------------+------------------------------------------------------------+
+| <Contador />         | Muestra el número de clics        | numClics                                                   |
++----------------------+----------------------------------+------------------------------------------------------------+
+| <Boton /> (clic)     | Suma +1 al contador               | texto="Clic", esBotonDeClick={true}, manejarClic={manejarClic} |
++----------------------+----------------------------------+------------------------------------------------------------+
+| <Boton /> (reiniciar)| Reinicia el contador a 0          | texto="Reiniciar", esBotonDeClick={false}, manejarClic={reiniciarContador} |
++----------------------+----------------------------------+------------------------------------------------------------+
+
+2. Boton.jsx — Componente reutilizable
+Explicación:
+Props desestructurados: { texto, esBotonDeClick, manejarClic }
+
+className={esBotonDeClick ? 'boton-clic' : 'boton-reiniciar'}:
+→ Usa operador ternario para aplicar una clase CSS según el tipo de botón.
+
+onClick={manejarClic}:
+→ Asigna la función que debe ejecutarse cuando se hace clic.
+
+{texto}:
+→ Muestra el texto dentro del botón (“Clic” o “Reiniciar”).
+Este componente es reutilizable, ya que no sabe qué hace la función manejarClic, solo la ejecuta.
+
+3. Contador.jsx — Componente visual simple
+Solo recibe una prop: numClics.
+La muestra dentro de un <div>.
+Cada vez que numClics cambia (desde App.jsx), React vuelve a renderizar este número automáticamente.
+
+4. Flujo completo de funcionamiento
+
+El estado numClics vive en App.jsx.
+App.jsx pasa ese valor y funciones como props a los hijos (Contador y Boton).
+Cuando haces clic en un botón:
+Boton ejecuta manejarClic o reiniciarContador.
+Estas funciones modifican el estado con setNumClics.
+React detecta el cambio y vuelve a renderizar App, actualizando el valor mostrado en Contador.
