@@ -59,6 +59,52 @@ Los comentarios dentro de JSX se escriben con llaves y /* ... */. {/*...*/}
 
 ==============================================================
 
+EXPLICACION DE ARCHIVOS Y FUNCIONAMIENTO DEL CODIGO
+
+main.jsx:
+es el archivo de inicio que enlaza React con el HTML del navegador.
+Este archivo no debería tener lógica de la aplicación, solo configuración de inicio.
+
+Template literals (`texto ${variable}`):
+Permiten insertar variables dentro de cadenas de texto.
+
+Desestructuración de props:
+En lugar de props.texto, usamos directamente { texto } en la definición del componente.
+Más limpio y directo.
+
+Renderizado condicional (operador ternario):
+className={ esBotonDeClick ? 'boton-clic' : 'boton-reiniciar' }
+Si esBotonDeClick es true, aplica una clase; si no, aplica otra.
+Este patrón es muy común para cambiar estilos o comportamiento según props.
+
+Flujo de datos (unidireccional):
+En React, los datos viajan de padres a hijos mediante props.
+App guarda el estado y pasa los valores (numClics) a los hijos (Contador, Boton).
+Los hijos no cambian el estado directamente, solo llaman a funciones que lo actualizan.
+Este patrón se llama "lifting state up" (elevar el estado al padre).
+
+Importación de imágenes:
+Importar una imagen como módulo (ej. import Logo from '../public/img/logo.png') es más limpio y seguro que usar rutas relativas.
+Vite/React optimizan automáticamente las imágenes importadas.
+
+Render condicional: cambia el contenido o estilos según una condición (? :).
+
+props.children: representa el contenido que está entre las etiquetas del componente. 
+Ejemplo: <Boton>1</Boton> → children = "1".
+
+evaluate (mathjs)
+Convierte un string matemático (ej. "2+2") en su resultado (4).
+
+Funciones manejadoras (handlers)
+manejarClic, manejarClear, etc., se pasan como props para responder a eventos.
+
+Eventos:
+onClick={() => props.manejarClic(props.children)} → ejecuta una función cuando se hace clic.
+
+MathJS:
+Librería externa para evaluar expresiones matemáticas de tipo texto.
+==============================================================
+
 FUNCIONAMIENTO DEL PRIMER PROYECTO: testimonios
 
 1. Testimonio.jsx — el componente hijo
@@ -91,6 +137,11 @@ App.jsx pasa datos como props → (nombre, pais, imagen, etc.)
 Testimonio.jsx recibe esas props y construye el JSX.
 React renderiza todo en el navegador.
 Las imágenes se cargan desde public/imagenes.
+
+5. Jerarquía de componentes
+main.jsx → renderiza <App />
+App.jsx → contiene varios <Testimonio />
+Testimonio.jsx → muestra los datos en pantalla.
 
 En resumen:
 Testimonio.jsx define cómo se ve un testimonio.
@@ -163,3 +214,25 @@ Cuando haces clic en un botón:
 Boton ejecuta manejarClic o reiniciarContador.
 Estas funciones modifican el estado con setNumClics.
 React detecta el cambio y vuelve a renderizar App, actualizando el valor mostrado en Contador.
+
+==============================================================
+
+FUNCIONAMIENTO DEL TERCER PROYECTO: Calculadora
+
+1. El componente principal (App.jsx) controla todo el comportamiento.
+Usa useState para guardar el texto que el usuario escribe en pantalla (input).
+
+2. Cuando el usuario hace clic en un botón numérico u operador (Boton.jsx):
+Se ejecuta la función agregarInput(val), que concatena el valor al estado input.
+Esto actualiza automáticamente la pantalla (Pantalla.jsx) gracias a la reactividad de React.
+
+3. Cuando el usuario presiona el botón “=” (Boton.jsx):
+Se ejecuta calcularResultado(), que usa evaluate() de mathjs para resolver la operación escrita (por ejemplo, "5+3*2" → 11).
+El resultado se muestra en la pantalla.
+
+4. Cuando se presiona “Clear” (BotonClear.jsx):
+Se llama a setInput(''), que vacía la pantalla.
+
+5. Los componentes se comunican con props:
+App → envía funciones (manejarClic, manejarClear) y datos (input) a los componentes hijos.
+Los hijos llaman esas funciones cuando ocurre un evento (clic), devolviendo la acción al padre.
