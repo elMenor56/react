@@ -236,3 +236,15 @@ Se llama a setInput(''), que vacía la pantalla.
 5. Los componentes se comunican con props:
 App → envía funciones (manejarClic, manejarClear) y datos (input) a los componentes hijos.
 Los hijos llaman esas funciones cuando ocurre un evento (clic), devolviendo la acción al padre.
+
+==============================================================
+
+FUNCIONAMIENTO DEL CUARTO PROYECTO: Lista de tareas
+
+App.jsx → estructura principal y logo.
+ListaDeTareas.jsx → controla el estado global de las tareas.
+TareaFormulario.jsx → maneja el formulario de entrada de texto.
+Tarea.jsx → muestra cada tarea individual con opciones para marcar o eliminar.
+useState controla los cambios dinámicos.
+La app funciona gracias a la comunicación de componentes mediante props.
+Todo cambio en el estado (agregar, eliminar o completar) hace que React vuelva a renderizar la lista automáticamente.
