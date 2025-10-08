@@ -28,6 +28,9 @@ En otras palabras, los Hooks hacen que los componentes de función sean más pod
 En pocas palabras, detecta acciones del usuario y ejecuta algo cuando pasan.
 En React, los event listeners se agregan directamente al JSX con nombres de eventos en camelCase (por ejemplo, onClick, onChange, onSubmit, etc.).
 
+6. La desestructuración de props en React permite extraer las propiedades que un componente recibe directamente desde sus parámetros, en lugar de usar props.propiedad.
+Esto mejora la legibilidad del código, evita repeticiones y facilita el trabajo con componentes más complejos.
+
 ==============================================================
 
 CONCEPTOS PRINCIPALES DE JSX
